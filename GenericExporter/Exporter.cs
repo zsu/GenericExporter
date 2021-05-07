@@ -6,7 +6,7 @@ using ClosedXML.Excel;
 
 namespace GenericExporter
 {
-    public class Exporter
+    public class Exporter : IExporter
     {
         public byte[] Export<T>(
         List<T> rows,
