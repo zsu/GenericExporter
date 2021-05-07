@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Authors>Zhicheng Su</Authors>
+    <Company>Zhicheng Su</Company>
+    <Description>Generic Excel Exporter</Description>
+    <Copyright>Zhicheng Su</Copyright>
+    <PackageProjectUrl>https://github.com/zsu/GenericExporter</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/zsu/GenericExporter</RepositoryUrl>
+    <PackageTags>Generic Excel Exporter</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
