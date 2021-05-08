@@ -9,7 +9,7 @@ namespace GenericExporter
     public class Exporter : IExporter
     {
         public byte[] Export<T>(
-        List<T> rows,
+        IEnumerable<T> rows,
         ExportType exportType = ExportType.Excel,
         string[] headers = null,
         Func<T, object[]> formatterFunc = null)
@@ -20,7 +20,7 @@ namespace GenericExporter
             }
         }
         public MemoryStream GetStream<T>(
-        List<T> rows,
+        IEnumerable<T> rows,
         ExportType exportType = ExportType.Excel,
         string[] headers = null,
         Func<T, object[]> formatterFunc = null)
@@ -37,7 +37,7 @@ namespace GenericExporter
             return ms;
         }
         public XLWorkbook ToExcel<T>(
-            List<T> rows,
+            IEnumerable<T> rows,
             string[] headers = null,
             Func<T, object[]> formatterFunc = null)
         {

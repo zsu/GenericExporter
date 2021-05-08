@@ -19,8 +19,8 @@ namespace Example
                     CreatedDate = GetRandomDate(),
                     Salary = new Random().NextDouble()
                 });
-            var result=exporter.Export<User>(items);
-            File.WriteAllBytes("Example.xslx", result);
+            var result=exporter.Export(items);
+            File.WriteAllBytes("Example.xlsx", result);
 
         }
         private static DateTime GetRandomDate()
