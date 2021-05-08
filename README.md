@@ -20,7 +20,7 @@ Install-Package GenericExporter
     var items=new List<User>(new User{...});
     var result = _exporter.Export(items);
   ``` 
-    * Otional parameters for custom headers and formatters:
+  * Otional parameters for custom headers and formatters:
   ```xml
     var items=new List<User>(new User{...});
     var result = _exporter.Export(items,new[] {"Id","Full Name","Birthday"},x=>new[] {x.Id,x.Name,x.Birthday.ToShortDateString()});
