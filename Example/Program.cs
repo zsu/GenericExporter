@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using GenericExporter;
 namespace Example
 {
@@ -10,7 +11,7 @@ namespace Example
         {
             var exporter = new Exporter();
             var items = new List<User>();
-            for(var i=0;i<100;i++)
+            for (var i = 0; i < 100; i++)
                 items.Add(new User
                 {
                     Id = i,
@@ -19,8 +20,10 @@ namespace Example
                     CreatedDate = GetRandomDate(),
                     Salary = new Random().NextDouble()
                 });
-            var result=exporter.Export(items);
+            var result = exporter.Export(items.Select(x => x));
             File.WriteAllBytes("Example.xlsx", result);
+            var result1 = exporter.Export(GetDynamics(items));
+            File.WriteAllBytes("Example1.xlsx", result1);
 
         }
         private static DateTime GetRandomDate()
@@ -30,9 +33,20 @@ namespace Example
             int range = (DateTime.Today - start).Days;
             return start.AddDays(gen.Next(range));
         }
+        private static IEnumerable<dynamic> GetDynamics(IEnumerable<User> items)
+        {
+            return items.Select(x => new
+            {
+                x.Id,
+                x.FirstName,
+                x.LastName,
+                x.CreatedDate,
+                x.Salary
+            });
+        }
 
     }
-     class User
+    class User
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

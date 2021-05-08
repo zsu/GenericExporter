@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using ClosedXML.Excel;
+using Newtonsoft.Json.Linq;
 
 namespace GenericExporter
 {
@@ -41,21 +43,29 @@ namespace GenericExporter
             string[] headers = null,
             Func<T, object[]> formatterFunc = null)
         {
+            bool isDynamic=false;
             var workbook = new XLWorkbook();
             var row = 1;
             var col = 1;
             var worksheet = workbook.Worksheets.Add("Export");
-            var pis = typeof(T).GetProperties();
-            foreach (var h in headers ?? pis.Select(pi => pi.Name).ToArray())
+            var properties = typeof(T).GetProperties();
+            string[] names=properties.Select(x=>x.Name).ToArray();
+            if(names?.Length==0)
+            {
+                isDynamic = true;
+                var dynamicProperties = GetPropertiesForDynamic(rows.FirstOrDefault());
+                names = dynamicProperties.Select(x => x.Key).ToArray();
+            }
+            foreach (var h in headers ?? names)
             {
                 worksheet.Cell(row, col++).Value = h;
             }
-            foreach (var o in rows)
+            foreach (var item in rows)
             {
                 row++;
                 col = 1;
                 var values = formatterFunc == null ?
-                    pis.Select(pi => pi.GetValue(o)) : formatterFunc(o);
+                    (isDynamic? GetPropertiesForDynamic(rows.FirstOrDefault()).Select(x=>x.Value): properties.Select(x => x.GetValue(item))) : formatterFunc(item);
                 foreach (var v in values)
                 {
                     worksheet.Cell(row, col++).Value = v;
@@ -63,6 +73,12 @@ namespace GenericExporter
             }
             worksheet.Columns().AdjustToContents();
             return workbook;
+        }
+        public Dictionary<string, object> GetPropertiesForDynamic(dynamic dynamicToGetPropertiesFor)
+        {
+            JObject attributesAsJObject = (JObject)JToken.FromObject(dynamicToGetPropertiesFor);
+            Dictionary<string, object> properties = attributesAsJObject.ToObject<Dictionary<string, object>>();
+            return properties;
         }
     }
     public enum ExportType
