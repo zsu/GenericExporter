@@ -16,8 +16,6 @@ namespace GenericExporter
         string[] headers = null,
         Func<T, object[]> formatterFunc = null)
         {
-            if (rows == null || rows.Count() == 0)
-                return null;
             using (var ms = GetStream(rows, exportType, headers, formatterFunc))
             {
                 return ms.ToArray();
@@ -50,6 +48,10 @@ namespace GenericExporter
             var row = 1;
             var col = 1;
             var worksheet = workbook.Worksheets.Add("Export");
+            if(rows==null || rows.Count()==0)
+            {
+                return workbook;
+            }
             var properties = typeof(T).GetProperties();
             string[] names=properties.Select(x=>x.Name).ToArray();
             if(names?.Length==0)

@@ -26,12 +26,7 @@ namespace Example
             var result1 = exporter.Export(GetDynamics(items));
             File.WriteAllBytes("Example1.xlsx", result1);
             var result2 = exporter.Export(GetDynamics(emptyList));
-            if(result2==null)
-            {
-                File.Delete("ExampleEmpty.xlsx");
-            }
-            else
-                File.WriteAllBytes("ExampleEmpty.xlsx", result2);
+            File.WriteAllBytes("ExampleEmpty.xlsx", result2);
 
         }
         private static DateTime GetRandomDate()
