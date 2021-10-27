@@ -10,6 +10,7 @@ namespace Example
         static void Main(string[] args)
         {
             var exporter = new Exporter();
+            var emptyList = new List<User>();
             var items = new List<User>();
             for (var i = 0; i < 100; i++)
                 items.Add(new User
@@ -24,6 +25,13 @@ namespace Example
             File.WriteAllBytes("Example.xlsx", result);
             var result1 = exporter.Export(GetDynamics(items));
             File.WriteAllBytes("Example1.xlsx", result1);
+            var result2 = exporter.Export(GetDynamics(emptyList));
+            if(result2==null)
+            {
+                File.Delete("ExampleEmpty.xlsx");
+            }
+            else
+                File.WriteAllBytes("ExampleEmpty.xlsx", result2);
 
         }
         private static DateTime GetRandomDate()

@@ -16,6 +16,8 @@ namespace GenericExporter
         string[] headers = null,
         Func<T, object[]> formatterFunc = null)
         {
+            if (rows == null || rows.Count() == 0)
+                return null;
             using (var ms = GetStream(rows, exportType, headers, formatterFunc))
             {
                 return ms.ToArray();
