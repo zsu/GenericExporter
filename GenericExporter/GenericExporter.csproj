@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Authors>Zhicheng Su</Authors>
     <Company>Zhicheng Su</Company>
     <Description>Generic Excel Exporter</Description>
@@ -9,14 +9,14 @@
     <PackageProjectUrl>https://github.com/zsu/GenericExporter</PackageProjectUrl>
     <RepositoryUrl>https://github.com/zsu/GenericExporter</RepositoryUrl>
     <PackageTags>Generic Excel Exporter</PackageTags>
-    <AssemblyVersion>1.7.0.0</AssemblyVersion>
-    <FileVersion>1.7.0.0</FileVersion>
-    <Version>1.7.0</Version>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.95.4" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.14" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 </Project>
