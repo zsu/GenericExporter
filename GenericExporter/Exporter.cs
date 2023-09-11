@@ -72,7 +72,7 @@ namespace GenericExporter
                     (isDynamic? GetPropertiesForDynamic(rows.FirstOrDefault()).Select(x=>x.Value): properties.Select(x => x.GetValue(item))) : formatterFunc(item);
                 foreach (var v in values)
                 {
-                    worksheet.Cell(row, col++).Value = v;
+                    worksheet.Cell(row, col++).Value = XLCellValue.FromObject(v);
                 }
             }
             worksheet.Columns().AdjustToContents();
