@@ -13,10 +13,10 @@ namespace GenericExporter
         public byte[] Export<T>(
         IEnumerable<T> rows,
         ExportType exportType = ExportType.Excel,
-        string[] headers = null,
+        string[] headers = null,bool freezeHeader = true,
         Func<T, object[]> formatterFunc = null)
         {
-            using (var ms = GetStream(rows, exportType, headers, formatterFunc))
+            using (var ms = GetStream(rows, exportType, headers, freezeHeader, formatterFunc))
             {
                 return ms.ToArray();
             }
@@ -24,14 +24,14 @@ namespace GenericExporter
         public MemoryStream GetStream<T>(
         IEnumerable<T> rows,
         ExportType exportType = ExportType.Excel,
-        string[] headers = null,
+        string[] headers = null,bool freezeHeader = true,
         Func<T, object[]> formatterFunc = null)
         {
             var ms = new MemoryStream();
             switch (exportType)
             {
                 case ExportType.Excel:
-                    using (var excel = ToExcel<T>(rows, headers, formatterFunc))
+                    using (var excel = ToExcel<T>(rows, headers, freezeHeader,formatterFunc))
                         excel.SaveAs(ms);
                     break;
             }
@@ -40,7 +40,7 @@ namespace GenericExporter
         }
         public XLWorkbook ToExcel<T>(
             IEnumerable<T> rows,
-            string[] headers = null,
+            string[] headers = null,bool freezeHeader=true,
             Func<T, object[]> formatterFunc = null)
         {
             bool isDynamic=false;
@@ -76,6 +76,7 @@ namespace GenericExporter
                 }
             }
             worksheet.Columns().AdjustToContents();
+            if (freezeHeader) { worksheet.SheetView.FreezeRows(1); }
             return workbook;
         }
         public Dictionary<string, object> GetPropertiesForDynamic(dynamic dynamicToGetPropertiesFor)
