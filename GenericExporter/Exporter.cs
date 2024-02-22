@@ -66,14 +66,14 @@ namespace GenericExporter
             }
             foreach (var item in rows)
             {
-                row++;
                 col = 1;
                 var values = formatterFunc == null ?
-                    (isDynamic? GetPropertiesForDynamic(rows.FirstOrDefault()).Select(x=>x.Value): properties.Select(x => x.GetValue(item))) : formatterFunc(item);
+                    (isDynamic? GetPropertiesForDynamic(rows.ElementAt(row-1)).Select(x=>x.Value): properties.Select(x => x.GetValue(item))) : formatterFunc(item);
                 foreach (var v in values)
                 {
                     worksheet.Cell(row, col++).Value = XLCellValue.FromObject(v);
                 }
+                row++;
             }
             worksheet.Columns().AdjustToContents();
             return workbook;
