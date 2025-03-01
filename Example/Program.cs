@@ -21,13 +21,15 @@ namespace Example
                     CreatedDate = GetRandomDate(),
                     Salary = new Random().NextDouble()
                 });
+            var baseDir = AppDomain.CurrentDomain.BaseDirectory;
             var result = exporter.Export(items.Select(x => x));
-            File.WriteAllBytes("Example.xlsx", result);
-            var result1 = exporter.Export(GetDynamics(items));
-            File.WriteAllBytes("Example1.xlsx", result1);
-            var result2 = exporter.Export(GetDynamics(emptyList));
-            File.WriteAllBytes("ExampleEmpty.xlsx", result2);
+            File.WriteAllBytes(Path.Combine(baseDir, "Example.xlsx"), result);
 
+            var result1 = exporter.Export(GetDynamics(items));
+            File.WriteAllBytes(Path.Combine(baseDir, "Example1.xlsx"), result1);
+
+            var result2 = exporter.Export(GetDynamics(emptyList));
+            File.WriteAllBytes(Path.Combine(baseDir, "ExampleEmpty.xlsx"), result2);
         }
         private static DateTime GetRandomDate()
         {

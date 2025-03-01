@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Launch Example",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "build",
+        "program": "${workspaceFolder}/Example/bin/Debug/net9.0/Example.exe",
+        "args": [],
+        "cwd": "${workspaceFolder}/Example",
+        "stopAtEntry": false,
+        "console": "integratedTerminal"
+    }
+    ]
+  }
+  
